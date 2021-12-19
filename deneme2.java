@@ -8,7 +8,7 @@ import java.util.Scanner;
  */
 class TicTacToe {
 
-    static int[] board = new int[9];
+    static int[] oyuntahtasi = new int[9];
     static int[] inputBoard = new int[27];
     static int n_noronlar = 30;  //gizli katmandaki nöron sayısı
     static int n_uyeler = 1000;//popülasyondaki üye sayısı
@@ -47,11 +47,11 @@ class TicTacToe {
                 }
             }
         }
-        run();
+        calistir();
 
     }
     public static void newGame(int i) {
-        board = new int[9];
+        oyuntahtasi = new int[9];
         inputBoard = new int[27];
         for(int j = 0; j < 27; j += 3) {
             inputBoard[j] = 1;
@@ -74,16 +74,16 @@ class TicTacToe {
         }
         double currmin = -100000; int curridx = -1;
         for(int i = 0; i < 9; i++) {
-            if(output[i] > currmin && board[i] == 0) {
+            if(output[i] > currmin && oyuntahtasi[i] == 0) {
                 currmin = output[i];
                 curridx = i;
             }
         }
-        board[curridx] = 1;
+        oyuntahtasi[curridx] = 1;
         inputBoard[curridx * 3 + 1] = 1; inputBoard[curridx * 3] = 0;
         boolean empty = false;
-        for(int i = 0; i < board.length; i++) {
-            if(board[i] == 0)
+        for(int i = 0; i < oyuntahtasi.length; i++) {
+            if(oyuntahtasi[i] == 0)
             {
                 empty = true;
             break;
@@ -91,14 +91,14 @@ class TicTacToe {
         }
 
         int o_idx = -1;
-        if((board[0] == 1 && board[3] == 1 && board[6] == 1) ||
-                (board[1] == 1 && board[4] == 1 && board[7] == 1) ||
-                (board[2] == 1 && board[5] == 1 && board[8] == 1) ||
-                (board[0] == 1 && board[1] == 1 && board[2] == 1) ||
-                (board[3] == 1 && board[4] == 1 && board[5] == 1) ||
-                (board[6] == 1 && board[7] == 1 && board[8] == 1) ||
-                (board[0] == 1 && board[4] == 1 && board[8] == 1) ||
-                (board[2] == 1 && board[4] == 1 && board[6] == 1) ) {
+        if((oyuntahtasi[0] == 1 && oyuntahtasi[3] == 1 && oyuntahtasi[6] == 1) ||
+                (oyuntahtasi[1] == 1 && oyuntahtasi[4] == 1 && oyuntahtasi[7] == 1) ||
+                (oyuntahtasi[2] == 1 && oyuntahtasi[5] == 1 && oyuntahtasi[8] == 1) ||
+                (oyuntahtasi[0] == 1 && oyuntahtasi[1] == 1 && oyuntahtasi[2] == 1) ||
+                (oyuntahtasi[3] == 1 && oyuntahtasi[4] == 1 && oyuntahtasi[5] == 1) ||
+                (oyuntahtasi[6] == 1 && oyuntahtasi[7] == 1 && oyuntahtasi[8] == 1) ||
+                (oyuntahtasi[0] == 1 && oyuntahtasi[4] == 1 && oyuntahtasi[8] == 1) ||
+                (oyuntahtasi[2] == 1 && oyuntahtasi[4] == 1 && oyuntahtasi[6] == 1) ) {
             skor[idx] += 1;
             return;
         }
@@ -108,63 +108,63 @@ class TicTacToe {
 
         }
         for(int i = 0; i < 9; i++) {
-            if(board[testers[currTest][i]] == 0){
+            if(oyuntahtasi[testers[currTest][i]] == 0){
                 o_idx = testers[currTest][i];
                 break;
             }
         }
-        if(board[0] == 2 && board[3] == 2 && board[6] == 0) {o_idx = 6;}
-        if(board[0] == 2 && board[3] == 0 && board[6] == 2) {o_idx = 3;}
-        if(board[0] == 0 && board[3] == 2 && board[6] == 2) {o_idx = 0;}
+        if(oyuntahtasi[0] == 2 && oyuntahtasi[3] == 2 && oyuntahtasi[6] == 0) {o_idx = 6;}
+        if(oyuntahtasi[0] == 2 && oyuntahtasi[3] == 0 && oyuntahtasi[6] == 2) {o_idx = 3;}
+        if(oyuntahtasi[0] == 0 && oyuntahtasi[3] == 2 && oyuntahtasi[6] == 2) {o_idx = 0;}
 
-        if(board[1] == 2 && board[4] == 2 && board[7] == 0) {o_idx = 7;}
-        if(board[1] == 2 && board[4] == 0 && board[7] == 2) {o_idx = 4;}
-        if(board[1] == 0 && board[4] == 2 && board[7] == 2) {o_idx = 1;}
+        if(oyuntahtasi[1] == 2 && oyuntahtasi[4] == 2 && oyuntahtasi[7] == 0) {o_idx = 7;}
+        if(oyuntahtasi[1] == 2 && oyuntahtasi[4] == 0 && oyuntahtasi[7] == 2) {o_idx = 4;}
+        if(oyuntahtasi[1] == 0 && oyuntahtasi[4] == 2 && oyuntahtasi[7] == 2) {o_idx = 1;}
 
-        if(board[2] == 2 && board[5] == 2 && board[8] == 0) {o_idx = 8;}
-        if(board[2] == 2 && board[5] == 0 && board[8] == 2) {o_idx = 5;}
-        if(board[2] == 0 && board[5] == 2 && board[8] == 2) {o_idx = 2;}
+        if(oyuntahtasi[2] == 2 && oyuntahtasi[5] == 2 && oyuntahtasi[8] == 0) {o_idx = 8;}
+        if(oyuntahtasi[2] == 2 && oyuntahtasi[5] == 0 && oyuntahtasi[8] == 2) {o_idx = 5;}
+        if(oyuntahtasi[2] == 0 && oyuntahtasi[5] == 2 && oyuntahtasi[8] == 2) {o_idx = 2;}
 
-        if(board[0] == 2 && board[1] == 2 && board[2] == 0) {o_idx = 2;}
-        if(board[0] == 2 && board[1] == 0 && board[2] == 2) {o_idx = 1;}
-        if(board[0] == 0 && board[1] == 2 && board[2] == 2) {o_idx = 0;}
+        if(oyuntahtasi[0] == 2 && oyuntahtasi[1] == 2 && oyuntahtasi[2] == 0) {o_idx = 2;}
+        if(oyuntahtasi[0] == 2 && oyuntahtasi[1] == 0 && oyuntahtasi[2] == 2) {o_idx = 1;}
+        if(oyuntahtasi[0] == 0 && oyuntahtasi[1] == 2 && oyuntahtasi[2] == 2) {o_idx = 0;}
 
-        if(board[3] == 2 && board[4] == 2 && board[5] == 0) {o_idx = 5;}
-        if(board[3] == 2 && board[4] == 0 && board[5] == 2) {o_idx = 4;}
-        if(board[3] == 0 && board[4] == 2 && board[5] == 2) {o_idx = 3;}
+        if(oyuntahtasi[3] == 2 && oyuntahtasi[4] == 2 && oyuntahtasi[5] == 0) {o_idx = 5;}
+        if(oyuntahtasi[3] == 2 && oyuntahtasi[4] == 0 && oyuntahtasi[5] == 2) {o_idx = 4;}
+        if(oyuntahtasi[3] == 0 && oyuntahtasi[4] == 2 && oyuntahtasi[5] == 2) {o_idx = 3;}
 
-        if(board[6] == 2 && board[7] == 2 && board[8] == 0) {o_idx = 8;}
-        if(board[6] == 2 && board[7] == 0 && board[8] == 2) {o_idx = 7;}
-        if(board[6] == 0 && board[7] == 2 && board[8] == 2) {o_idx = 6;}
+        if(oyuntahtasi[6] == 2 && oyuntahtasi[7] == 2 && oyuntahtasi[8] == 0) {o_idx = 8;}
+        if(oyuntahtasi[6] == 2 && oyuntahtasi[7] == 0 && oyuntahtasi[8] == 2) {o_idx = 7;}
+        if(oyuntahtasi[6] == 0 && oyuntahtasi[7] == 2 && oyuntahtasi[8] == 2) {o_idx = 6;}
 
-        if(board[0] == 2 && board[4] == 2 && board[8] == 0) {o_idx = 8;}
-        if(board[0] == 2 && board[4] == 0 && board[8] == 2) {o_idx = 4;}
-        if(board[0] == 0 && board[4] == 2 && board[8] == 2) {o_idx = 0;}
+        if(oyuntahtasi[0] == 2 && oyuntahtasi[4] == 2 && oyuntahtasi[8] == 0) {o_idx = 8;}
+        if(oyuntahtasi[0] == 2 && oyuntahtasi[4] == 0 && oyuntahtasi[8] == 2) {o_idx = 4;}
+        if(oyuntahtasi[0] == 0 && oyuntahtasi[4] == 2 && oyuntahtasi[8] == 2) {o_idx = 0;}
 
-        if(board[2] == 2 && board[4] == 2 && board[6] == 0) {o_idx = 6;}
-        if(board[2] == 2 && board[4] == 0 && board[6] == 2) {o_idx = 4;}
-        if(board[2] == 0 && board[4] == 2 && board[6] == 2) {o_idx = 2;}
+        if(oyuntahtasi[2] == 2 && oyuntahtasi[4] == 2 && oyuntahtasi[6] == 0) {o_idx = 6;}
+        if(oyuntahtasi[2] == 2 && oyuntahtasi[4] == 0 && oyuntahtasi[6] == 2) {o_idx = 4;}
+        if(oyuntahtasi[2] == 0 && oyuntahtasi[4] == 2 && oyuntahtasi[6] == 2) {o_idx = 2;}
 
-        board[o_idx] = 2;
+        oyuntahtasi[o_idx] = 2;
         inputBoard[o_idx * 3 + 2] = 1; inputBoard[o_idx * 3] = 0;
-        if((board[0] == 2 && board[3] == 2 && board[6] == 2) ||
-                (board[1] == 2 && board[4] == 2 && board[7] == 2) ||
-                (board[2] == 2 && board[5] == 2 && board[8] == 2) ||
-                (board[0] == 2 && board[1] == 2 && board[2] == 2) ||
-                (board[3] == 2 && board[4] == 2 && board[5] == 2) ||
-                (board[6] == 2 && board[7] == 2 && board[8] == 2) ||
-                (board[0] == 2 && board[4] == 2 && board[8] == 2) ||
-                (board[2] == 2 && board[4] == 2 && board[6] == 2) ) {
+        if((oyuntahtasi[0] == 2 && oyuntahtasi[3] == 2 && oyuntahtasi[6] == 2) ||
+                (oyuntahtasi[1] == 2 && oyuntahtasi[4] == 2 && oyuntahtasi[7] == 2) ||
+                (oyuntahtasi[2] == 2 && oyuntahtasi[5] == 2 && oyuntahtasi[8] == 2) ||
+                (oyuntahtasi[0] == 2 && oyuntahtasi[1] == 2 && oyuntahtasi[2] == 2) ||
+                (oyuntahtasi[3] == 2 && oyuntahtasi[4] == 2 && oyuntahtasi[5] == 2) ||
+                (oyuntahtasi[6] == 2 && oyuntahtasi[7] == 2 && oyuntahtasi[8] == 2) ||
+                (oyuntahtasi[0] == 2 && oyuntahtasi[4] == 2 && oyuntahtasi[8] == 2) ||
+                (oyuntahtasi[2] == 2 && oyuntahtasi[4] == 2 && oyuntahtasi[6] == 2) ) {
             antiskor[idx]++; return;
         }
         game(idx);
     }
-    public static  void run() {
+    public static  void calistir() {
         Scanner sc = new Scanner(System.in);
-        System.out.println("input command:");
+        System.out.println("Komut Girişi: train ya da play");
         String s = sc.next();
         if(s.equals("train")) {
-            System.out.println("how many?");
+            System.out.println("Kaç Adet");
             int i;
             try {
                 i = Integer.parseInt(sc.next());
@@ -176,19 +176,19 @@ class TicTacToe {
             while(i > 0) {
                 i--;
                 for(int j = 0; j < n_denemeler; j++) {
-                    boolean[] assigned = new boolean[9];
+                    boolean[] atanan = new boolean[9];
                     for(int k = 0; k < 9; k++) {
                         int it = (int)(Math.random() * 9);
-                        if(assigned[it]) {k--; continue;}
-                        assigned[it] = true;
+                        if(atanan[it]) {k--; continue;}
+                        atanan[it] = true;
                         testers[j][k] = it;
                     }
                 }
-                int trial = n_egitim;
-                while(trial > 0) {
-                    trial--;
+                int dene = n_egitim;
+                while(dene > 0) {
+                    dene--;
 
-                    System.out.println(i + "," + trial);
+                    System.out.println(i + "," + dene);
                     for(int j = 0; j < n_uyeler; j++) {
                         for(int k = 0; k < n_denemeler; k++) {
                             newGame(j);
@@ -204,7 +204,7 @@ class TicTacToe {
                             idx = k; }
                         }
                         if(skor[idx] == n_denemeler) {
-                            trial = 0;
+                            dene = 0;
                         }
                         skor[idx] = 0;
                         survivors[j] = idx;
@@ -271,19 +271,19 @@ class TicTacToe {
                 }
             }
 
-            run();
+            calistir();
         }else if(s.equals("play")) {
-            System.out.println("idx?");
+            System.out.println("idx giriniz");
             int idx;
             try {
                 idx = Integer.parseInt(sc.next());
             }catch(NumberFormatException e) {
                 e.printStackTrace();
-                run();
+                calistir();
                 sc.close();
                 return;
             }
-            board = new int[9];
+            oyuntahtasi = new int[9];
             inputBoard = new int[27];
             for(int j = 0; j < 27; j += 3) {
                 inputBoard[j] = 1;
@@ -304,26 +304,26 @@ class TicTacToe {
                 }
                 double currmin = -1000000000; int curridx = -1;
                 for(int i = 0; i < 9; i++) {
-                    if(output[i] > currmin && board[i] == 0) {
+                    if(output[i] > currmin && oyuntahtasi[i] == 0) {
                         currmin = output[i];
                         curridx = i;
                     }
                 }
-                board[curridx] = 1;
+                oyuntahtasi[curridx] = 1;
                 inputBoard[curridx * 3 + 1] = 1; inputBoard[curridx * 3] = 0;
                 boolean empty = false;
-                for(int i = 0; i < board.length; i++) {
-                    if(board[i] == 0) {empty = true; break;}
+                for(int i = 0; i < oyuntahtasi.length; i++) {
+                    if(oyuntahtasi[i] == 0) {empty = true; break;}
                 }
 
-                if((board[0] == 1 && board[3] == 1 && board[6] == 1) ||
-                        (board[1] == 1 && board[4] == 1 && board[7] == 1) ||
-                        (board[2] == 1 && board[5] == 1 && board[8] == 1) ||
-                        (board[0] == 1 && board[1] == 1 && board[2] == 1) ||
-                        (board[3] == 1 && board[4] == 1 && board[5] == 1) ||
-                        (board[6] == 1 && board[7] == 1 && board[8] == 1) ||
-                        (board[0] == 1 && board[4] == 1 && board[8] == 1) ||
-                        (board[2] == 1 && board[4] == 1 && board[6] == 1) ) {
+                if((oyuntahtasi[0] == 1 && oyuntahtasi[3] == 1 && oyuntahtasi[6] == 1) ||
+                        (oyuntahtasi[1] == 1 && oyuntahtasi[4] == 1 && oyuntahtasi[7] == 1) ||
+                        (oyuntahtasi[2] == 1 && oyuntahtasi[5] == 1 && oyuntahtasi[8] == 1) ||
+                        (oyuntahtasi[0] == 1 && oyuntahtasi[1] == 1 && oyuntahtasi[2] == 1) ||
+                        (oyuntahtasi[3] == 1 && oyuntahtasi[4] == 1 && oyuntahtasi[5] == 1) ||
+                        (oyuntahtasi[6] == 1 && oyuntahtasi[7] == 1 && oyuntahtasi[8] == 1) ||
+                        (oyuntahtasi[0] == 1 && oyuntahtasi[4] == 1 && oyuntahtasi[8] == 1) ||
+                        (oyuntahtasi[2] == 1 && oyuntahtasi[4] == 1 && oyuntahtasi[6] == 1) ) {
                     state = 1; break;
                 }
                 if(!empty) {
@@ -331,63 +331,63 @@ class TicTacToe {
                 }
                 for(int i = 0; i < 9; i++) {
                     if(i % 3 == 0) {System.out.println();}
-                    if(board[i] == 0) {
+                    if(oyuntahtasi[i] == 0) {
                         System.out.print("E");
-                    }else if(board[i] == 1) {
+                    }else if(oyuntahtasi[i] == 1) {
                         System.out.print("X");
-                    }else if(board[i] == 2) {
+                    }else if(oyuntahtasi[i] == 2) {
                         System.out.print("O");
                     }
                 }
                 System.out.println();
-                int o_move = -1;
-                while(o_move < 0 || o_move > 9 || board[o_move] != 0 ){
-                    System.out.println("move?");
-                    String str = sc.next();
+                int o_hareket = -1;
+                while(o_hareket < 0 || o_hareket > 9 || oyuntahtasi[o_hareket] != 0 ){
+                    System.out.println("nereye (0-8 arasında bir sayı giriniz)?");
+                    String stringdeger = sc.next();
                     try {
-                        o_move = Integer.parseInt(str);
+                        o_hareket = Integer.parseInt(stringdeger);
                     }catch (NumberFormatException e) {
-                        System.out.println("Enter a number [0-8]");
-                        o_move = -5;
+                        System.out.println("0 ile 8 arasında bir sayı giriniz[0-8]");
+                        o_hareket = -5;
                     }
-                    if(o_move < 0 || o_move >= 9 ||  board[o_move] != 0) {
-                        System.out.println("illegal move! Enter a number [0-8]");
+                    if(o_hareket < 0 || o_hareket >= 9 ||  oyuntahtasi[o_hareket] != 0) {
+                        System.out.println("Hatalı işlem! Lütfen [0-8] arasında bir sayı girin");
                     }
                 }
-                board[o_move] = 2;
-                inputBoard[o_move * 3 + 2] = 1; inputBoard[o_move * 3] = 0;
-                if((board[0] == 2 && board[3] == 2 && board[6] == 2) ||
-                        (board[1] == 2 && board[4] == 2 && board[7] == 2) ||
-                        (board[2] == 2 && board[5] == 2 && board[8] == 2) ||
-                        (board[0] == 2 && board[1] == 2 && board[2] == 2) ||
-                        (board[3] == 2 && board[4] == 2 && board[5] == 2) ||
-                        (board[6] == 2 && board[7] == 2 && board[8] == 2) ||
-                        (board[0] == 2 && board[4] == 2 && board[8] == 2) ||
-                        (board[2] == 2 && board[4] == 2 && board[6] == 2) ) {
+                oyuntahtasi[o_hareket] = 2;
+                inputBoard[o_hareket * 3 + 2] = 1; inputBoard[o_hareket * 3] = 0;
+                if((oyuntahtasi[0] == 2 && oyuntahtasi[3] == 2 && oyuntahtasi[6] == 2) ||
+                        (oyuntahtasi[1] == 2 && oyuntahtasi[4] == 2 && oyuntahtasi[7] == 2) ||
+                        (oyuntahtasi[2] == 2 && oyuntahtasi[5] == 2 && oyuntahtasi[8] == 2) ||
+                        (oyuntahtasi[0] == 2 && oyuntahtasi[1] == 2 && oyuntahtasi[2] == 2) ||
+                        (oyuntahtasi[3] == 2 && oyuntahtasi[4] == 2 && oyuntahtasi[5] == 2) ||
+                        (oyuntahtasi[6] == 2 && oyuntahtasi[7] == 2 && oyuntahtasi[8] == 2) ||
+                        (oyuntahtasi[0] == 2 && oyuntahtasi[4] == 2 && oyuntahtasi[8] == 2) ||
+                        (oyuntahtasi[2] == 2 && oyuntahtasi[4] == 2 && oyuntahtasi[6] == 2) ) {
                     state = 2;
                 }
             }
             for(int i = 0; i < 9; i++) {
                 if(i % 3 == 0) {System.out.println();}
-                if(board[i] == 0) {
+                if(oyuntahtasi[i] == 0) {
                     System.out.print("E");
-                }else if(board[i] == 1) {
+                }else if(oyuntahtasi[i] == 1) {
                     System.out.print("X");
-                }else if(board[i] == 2) {
+                }else if(oyuntahtasi[i] == 2) {
                     System.out.print("O");
                 }
             }
             System.out.println();
             switch(state) {
-                case 0:System.out.println("Error?"); break;
-                case 1:System.out.println("X wins!"); break;
-                case 2:System.out.println("O wins!"); break;
-                case -1:System.out.println("Cat's game!"); break;
+                case 0:System.out.println("Hata?"); break;
+                case 1:System.out.println("Adam Kazandı!"); break;
+                case 2:System.out.println("O Kazandı!"); break;
+                case -1:System.out.println("Berabere!"); break;
             }
-            run();
+            calistir();
         }else if(!s.equals("exit")) {
-            System.out.println("unknown command!");
-            run();
+            System.out.println("Bilinmeyen Komut Girişi Yapıldı!");
+            calistir();
         }
         sc.close();
     }
