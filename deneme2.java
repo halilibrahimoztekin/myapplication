@@ -19,7 +19,7 @@ class TicTacToe {
     static double[][][] w1 = new double[n_uyeler][27][n_noronlar];
     static double[] hL = new double[n_noronlar];
     static double[][][] w2 = new double[n_uyeler][n_noronlar][9];
-    static double[] output = new double[9];
+    static double[] ciktilar = new double[9];
 
 
     //skor = kazanılan oyun sayısı, antiskor = kaybedilen oyun sayısı (tutarsızlık = beraberlik)
@@ -29,7 +29,7 @@ class TicTacToe {
 
     static double var = .4; //her ağdaki ağırlıkların varyansı
     static Random r = new Random();
-    static int currTest = 0;
+    static int simdikiTest = 0;
     static int[][] testers = new int[n_denemeler][9];
 
     public static void main(String[] args) {
@@ -66,16 +66,16 @@ class TicTacToe {
                 hL[j] += inputBoard[i] * w1[idx][i][j];
             }
         }
-        output = new double[9];
+        ciktilar = new double[9];
         for(int i = 0; i < w2[idx].length; i++) {
             for(int j = 0; j < w2[idx][i].length; j++) {
-                output[j] += hL[i] * w2[idx][i][j];
+                ciktilar[j] += hL[i] * w2[idx][i][j];
             }
         }
         double currmin = -100000; int curridx = -1;
         for(int i = 0; i < 9; i++) {
-            if(output[i] > currmin && oyuntahtasi[i] == 0) {
-                currmin = output[i];
+            if(ciktilar[i] > currmin && oyuntahtasi[i] == 0) {
+                currmin = ciktilar[i];
                 curridx = i;
             }
         }
@@ -108,8 +108,8 @@ class TicTacToe {
 
         }
         for(int i = 0; i < 9; i++) {
-            if(oyuntahtasi[testers[currTest][i]] == 0){
-                o_idx = testers[currTest][i];
+            if(oyuntahtasi[testers[simdikiTest][i]] == 0){
+                o_idx = testers[simdikiTest][i];
                 break;
             }
         }
@@ -192,11 +192,11 @@ class TicTacToe {
                     for(int j = 0; j < n_uyeler; j++) {
                         for(int k = 0; k < n_denemeler; k++) {
                             newGame(j);
-                            currTest++;
+                            simdikiTest++;
                         }
-                        currTest = 0;
+                        simdikiTest = 0;
                     }
-                    int[] survivors = new int[(int)(p_hayattakalma * n_uyeler)];
+                    int[] hayattakalanlar = new int[(int)(p_hayattakalma * n_uyeler)];
                     for(int j = 0; j < (int)(p_hayattakalma * n_uyeler); j++) {
                         int idx = 0;
                         for(int k = 1; k < skor.length; k++) {if(antiskor[k] < antiskor[idx]
@@ -207,20 +207,20 @@ class TicTacToe {
                             dene = 0;
                         }
                         skor[idx] = 0;
-                        survivors[j] = idx;
+                        hayattakalanlar[j] = idx;
                     }
-                    double[][][] w1clone = new double[n_uyeler][27][n_noronlar];
-                    double[][][] w2clone = new double[n_uyeler][n_noronlar][9];
+                    double[][][] w1kopyasi = new double[n_uyeler][27][n_noronlar];
+                    double[][][] w2kopyasi = new double[n_uyeler][n_noronlar][9];
                     int idx = 0;
-                    for(int j = 0; j < survivors.length; j++) {
+                    for(int j = 0; j < hayattakalanlar.length; j++) {
                         for(int k = 0; k < w1[0].length; k++) {
                             for(int h = 0; h < w1[0][0].length; h++) {
-                                w1clone[idx][k][h] = w1[survivors[j]][k][h];
+                                w1kopyasi[idx][k][h] = w1[hayattakalanlar[j]][k][h];
                             }
                         }
                         for(int k = 0; k < w2[0].length; k++) {
                             for(int h = 0; h < w2[0][0].length; h++) {
-                                w2clone[idx][k][h] = w2[survivors[j]][k][h];
+                                w2kopyasi[idx][k][h] = w2[hayattakalanlar[j]][k][h];
                             }
                         }
                         idx++;
@@ -228,44 +228,44 @@ class TicTacToe {
                     int foo = idx;
                     for(idx = foo; idx < n_uyeler - (int)(p_hayattakalma * n_uyeler); idx++) {
                         if(Math.random() > .5) {
-                            int thisIdx = (int)(Math.random() * survivors.length);
-                            w1clone[idx] = w1[survivors[thisIdx]];
-                            w2clone[idx] = w2[survivors[thisIdx]];
+                            int thisIdx = (int)(Math.random() * hayattakalanlar.length);
+                            w1kopyasi[idx] = w1[hayattakalanlar[thisIdx]];
+                            w2kopyasi[idx] = w2[hayattakalanlar[thisIdx]];
                             for(int k = 0; k < w1[0].length; k++) {
                                 for(int h = 0; h < w1[0][0].length; h++) {
-                                    w1clone[idx][k][h] +=  (var - 2 * var * Math.random());
+                                    w1kopyasi[idx][k][h] +=  (var - 2 * var * Math.random());
                                 }
                             }
                             for(int k = 0; k < w2[0].length; k++) {
                                 for(int h = 0; h < w2[0][0].length; h++) {
-                                    w2clone[idx][k][h] += (var - 2 * var * Math.random());
+                                    w2kopyasi[idx][k][h] += (var - 2 * var * Math.random());
                                 }
                             }
                         }else {
-                            int p1 = (int)(Math.random() * survivors.length), p2 = (int)(Math.random() * survivors.length);
+                            int p1 = (int)(Math.random() * hayattakalanlar.length), p2 = (int)(Math.random() * hayattakalanlar.length);
                             double favor = Math.random();
                             for(int k = 0; k < w1[0].length; k++) {
                                 for(int h = 0; h < w1[0][0].length; h++) {
                                     if(Math.random() > favor) {
-                                        w1clone[idx][k][h] = w1[survivors[p1]][k][h];
+                                        w1kopyasi[idx][k][h] = w1[hayattakalanlar[p1]][k][h];
                                     }else {
-                                        w1clone[idx][k][h] = w1[survivors[p2]][k][h];
+                                        w1kopyasi[idx][k][h] = w1[hayattakalanlar[p2]][k][h];
                                     }
                                 }
                             }
                             for(int k = 0; k < w2[0].length; k++) {
                                 for(int h = 0; h < w2[0][0].length; h++) {
                                     if(Math.random() > favor) {
-                                        w2clone[idx][k][h] = w2[survivors[p1]][k][h];
+                                        w2kopyasi[idx][k][h] = w2[hayattakalanlar[p1]][k][h];
                                     }else {
-                                        w2clone[idx][k][h] = w2[survivors[p2]][k][h];
+                                        w2kopyasi[idx][k][h] = w2[hayattakalanlar[p2]][k][h];
                                     }
                                 }
                             }
                         }
                     }
-                    w1 = w1clone;
-                    w2 = w2clone;
+                    w1 = w1kopyasi;
+                    w2 = w2kopyasi;
                     skor = new double[n_uyeler];
                     antiskor = new double[n_uyeler];
                 }
@@ -296,16 +296,16 @@ class TicTacToe {
                         hL[j] += inputBoard[i] * w1[idx][i][j];
                     }
                 }
-                output = new double[9];
+                ciktilar = new double[9];
                 for(int i = 0; i < w2[idx].length; i++) {
                     for(int j = 0; j < w2[idx][i].length; j++) {
-                        output[j] += hL[i] * w2[idx][i][j];
+                        ciktilar[j] += hL[i] * w2[idx][i][j];
                     }
                 }
                 double currmin = -1000000000; int curridx = -1;
                 for(int i = 0; i < 9; i++) {
-                    if(output[i] > currmin && oyuntahtasi[i] == 0) {
-                        currmin = output[i];
+                    if(ciktilar[i] > currmin && oyuntahtasi[i] == 0) {
+                        currmin = ciktilar[i];
                         curridx = i;
                     }
                 }
@@ -380,8 +380,8 @@ class TicTacToe {
             System.out.println();
             switch(state) {
                 case 0:System.out.println("Hata?"); break;
-                case 1:System.out.println("Adam Kazandı!"); break;
-                case 2:System.out.println("O Kazandı!"); break;
+                case 1:System.out.println("X Kazandı!"); break;
+                case 2:System.out.println("Kazandın Tebrikler!"); break;
                 case -1:System.out.println("Berabere!"); break;
             }
             calistir();
